@@ -82,35 +82,38 @@ function Timer() {
             </p>
           </div>
 
-          <div className="mb-4 space-y-3">
-            <div>
-              <label className="block text-xs font-medium text-green-800 mb-1">
-                Work (min)
-              </label>
-              <input
-                type="number"
-                min="1"
-                max="60"
-                value={workMinutes}
-                onChange={(e) => setWorkMinutes(Number(e.target.value))}
-                className="w-full px-2 py-1 text-sm border border-green-300 rounded-lg focus:ring-1 focus:ring-green-500 focus:border-green-500 outline-none transition-colors"
-                disabled={isRunning}
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-medium text-green-800 mb-1">
-                Rest (min)
-              </label>
-              <input
-                type="number"
-                min="1"
-                max="60"
-                value={restMinutes}
-                onChange={(e) => setRestMinutes(Number(e.target.value))}
-                className="w-full px-2 py-1 text-sm border border-green-300 rounded-lg focus:ring-1 focus:ring-green-500 focus:border-green-500 outline-none transition-colors"
-                disabled={isRunning}
-              />
-            </div>
+          <div className="mb-4">
+            {state === 'work' ? (
+              <div>
+                <label className="block text-xs font-medium text-green-800 mb-1">
+                  Work (min)
+                </label>
+                <input
+                  type="number"
+                  min="1"
+                  max="60"
+                  value={workMinutes}
+                  onChange={(e) => setWorkMinutes(Number(e.target.value))}
+                  className="w-full px-2 py-1 text-sm border border-green-300 rounded-lg focus:ring-1 focus:ring-green-500 focus:border-green-500 outline-none transition-colors"
+                  disabled={isRunning}
+                />
+              </div>
+            ) : (
+              <div>
+                <label className="block text-xs font-medium text-green-800 mb-1">
+                  Rest (min)
+                </label>
+                <input
+                  type="number"
+                  min="1"
+                  max="60"
+                  value={restMinutes}
+                  onChange={(e) => setRestMinutes(Number(e.target.value))}
+                  className="w-full px-2 py-1 text-sm border border-green-300 rounded-lg focus:ring-1 focus:ring-green-500 focus:border-green-500 outline-none transition-colors"
+                  disabled={isRunning}
+                />
+              </div>
+            )}
           </div>
 
           <div className="flex gap-2">
