@@ -1,17 +1,17 @@
-import '../index.css';
-import { useState, useEffect } from 'react';
+import "../index.css";
+import { useState, useEffect } from "react";
 
-type TimerState = 'work' | 'rest';
+type TimerState = "work" | "rest";
 
 function Timer() {
-  const [state, setState] = useState<TimerState>('work');
+  const [state, setState] = useState<TimerState>("work");
   const [workMinutes, setWorkMinutes] = useState(25);
   const [restMinutes, setRestMinutes] = useState(5);
   const [timeLeft, setTimeLeft] = useState(workMinutes * 60);
   const [isRunning, setIsRunning] = useState(false);
 
   useEffect(() => {
-    setTimeLeft(state === 'work' ? workMinutes * 60 : restMinutes * 60);
+    setTimeLeft(state === "work" ? workMinutes * 60 : restMinutes * 60);
     setIsRunning(false);
   }, [state, workMinutes, restMinutes]);
 
@@ -31,15 +31,22 @@ function Timer() {
     return () => clearInterval(interval);
   }, [isRunning, timeLeft]);
 
+  useEffect(() => {
+    if (timeLeft === 0) {
+      const audio = new Audio("/audio/notification_1.m4a");
+      audio.play().catch((err) => console.error("Failed to play sound:", err));
+    }
+  }, [timeLeft]);
+
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
   const handleReset = () => {
     setIsRunning(false);
-    setTimeLeft(state === 'work' ? workMinutes * 60 : restMinutes * 60);
+    setTimeLeft(state === "work" ? workMinutes * 60 : restMinutes * 60);
   };
 
   return (
@@ -52,21 +59,21 @@ function Timer() {
 
           <div className="flex gap-2 mb-4">
             <button
-              onClick={() => setState('work')}
+              onClick={() => setState("work")}
               className={`flex-1 py-2 px-3 rounded-lg font-medium text-sm transition-colors ${
-                state === 'work'
-                  ? 'bg-green-600 text-white shadow-sm'
-                  : 'bg-green-100 text-green-700 hover:bg-green-200'
+                state === "work"
+                  ? "bg-green-600 text-white shadow-sm"
+                  : "bg-green-100 text-green-700 hover:bg-green-200"
               }`}
             >
               Work
             </button>
             <button
-              onClick={() => setState('rest')}
+              onClick={() => setState("rest")}
               className={`flex-1 py-2 px-3 rounded-lg font-medium text-sm transition-colors ${
-                state === 'rest'
-                  ? 'bg-green-600 text-white shadow-sm'
-                  : 'bg-green-100 text-green-700 hover:bg-green-200'
+                state === "rest"
+                  ? "bg-green-600 text-white shadow-sm"
+                  : "bg-green-100 text-green-700 hover:bg-green-200"
               }`}
             >
               Rest
@@ -78,12 +85,12 @@ function Timer() {
               {formatTime(timeLeft)}
             </div>
             <p className="text-green-700 text-xs font-medium">
-              {state === 'work' ? 'Focus Time' : 'Break Time'}
+              {state === "work" ? "Focus Time" : "Break Time"}
             </p>
           </div>
 
           <div className="mb-4">
-            {state === 'work' ? (
+            {state === "work" ? (
               <div>
                 <label className="block text-xs font-medium text-green-800 mb-1">
                   Work (min)
@@ -121,7 +128,7 @@ function Timer() {
               onClick={() => setIsRunning(!isRunning)}
               className="flex-1 py-2 px-4 rounded-lg font-medium text-sm text-white transition-all bg-green-600 hover:bg-green-700 shadow-sm"
             >
-              {isRunning ? 'Pause' : 'Start'}
+              {isRunning ? "Pause" : "Start"}
             </button>
             <button
               onClick={handleReset}
