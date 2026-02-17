@@ -3,7 +3,11 @@ import { useState, useEffect } from "react";
 
 type TimerState = "work" | "rest";
 
-function Timer() {
+interface TimerProps {
+  soundNotif: string;
+}
+
+function Timer({ soundNotif }: TimerProps) {
   const [state, setState] = useState<TimerState>("work");
   const [workMinutes, setWorkMinutes] = useState(25);
   const [restMinutes, setRestMinutes] = useState(5);
@@ -33,10 +37,10 @@ function Timer() {
 
   useEffect(() => {
     if (timeLeft === 0) {
-      const audio = new Audio("/audio/notification_1.m4a");
+      const audio = new Audio(`/audio/${soundNotif}`);
       audio.play().catch((err) => console.error("Failed to play sound:", err));
     }
-  }, [timeLeft]);
+  }, [timeLeft, soundNotif]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -80,7 +84,7 @@ function Timer() {
             </button>
           </div>
 
-          <div className="text-center mb-4 bg-green-50 rounded-lg py-4 px-3 border border-green-200">
+          <div className="text-center mb-4 bg-green-100 rounded-lg py-4 px-3 border border-green-200">
             <div className="text-4xl font-bold mb-1 text-green-600">
               {formatTime(timeLeft)}
             </div>
