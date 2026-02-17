@@ -25,10 +25,10 @@ export default function FloatingButton({
 
   const wallpapers = [
     { value: "none", label: "No Wallpaper" },
-    { value: "wallpaper1.jpg", label: "Wallpaper 1" },
-    { value: "wallpaper2.jpg", label: "Wallpaper 2" },
-    { value: "wallpaper3.jpg", label: "Wallpaper 3" },
-    { value: "dazai.jpg", label: "Ruston Coffee" },
+    { value: "wallpaper1.png", label: "Stardew Valley" },
+    { value: "wallpaper2.jpg", label: "Forest" },
+    { value: "wallpaper3.png", label: "Red Dead Redemption 2" },
+    { value: "dazai.jpg", label: "The Last of Us" },
   ];
 
   const sounds = [
